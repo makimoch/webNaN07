@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>カウントダウン</title>
+  <style>
+    html {
+      height: 100%;
+    }
+
+    body {
+      height: 100%;
+    }
+
+    .main {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .main h1 {
+      font-size: 4vw;
+      font-weight: lighter;
+    }
+
+    .desc {
+      font-size: 2.25vw;
+      font-weight: bold;
+      color: #3e62ad;
+    }
+
+    #timer {
+      font-size: 2.25vw;
+      font-weight: bold;
+      color: #3e62ad;
+    }
+
+    #timer span {
+      font-size: 4vw;
+      font-weight: bold;
+      color: #c85554;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main">
+    <h1 class="title">G's 2019</h1>
+    <p class="desc">G's FUKUOKA 1st anniversary party is on Sunday, 28 July 2019, 13:00(JPN) !!</p>
+    <p id="timer"></p>
+  </div>
+
+  <script>
+
+    const zeroPadding = (num) => {
+      if (String(num).split('').length < 2) {
+        return '0' + num;
+      } else {
+        return num;
+      }
+    };
+
+    const zeroPaddingMs = (ms) => {
+      if (String(ms).split('').length < 2) {
+        return '00' + ms;
+      } else if (String(ms).split('').length < 3) {
+        return '0' + ms;
+      } else {
+        return ms;
+      }
+    };
+
+    const countDownTimer = () => {
+      const countDown = setInterval(function () {
+        const today = new Date();
+        const targetDay = new Date('2019/7/28 13:00:00');
+        const diffDay = targetDay - today;
+        const d = Math.ceil(diffDay / (24 * 60 * 60 * 1000) - 1);
+        if (diffDay >= 0) {
+          const h = Math.floor(diffDay / 3600000);
+          const h1 = h % 24;
+          const m = Math.floor((diffDay - h * 3600000) / 60000);
+          const s = Math.floor((diffDay - h * 3600000 - m * 60000) / 1000);
+          const ms = Math.floor((diffDay - h * 3600000 - m * 60000 - s * 1000));
+          document.getElementById('timer').innerHTML = `<span>${d}</span>days <span>${zeroPadding(h1)}</span>hours <span>${zeroPadding(m)}</span>min <span>${zeroPadding(s)}</span>sec <span>${zeroPaddingMs(ms)}</span>`;
+          if ((h == 0) && (m == 0) && (s == 0)) {
+            clearTimeout(countdown);
+            document.getElementById('timer').innerHTML = `start!`;
+          }
+        } else {
+          document.getElementById('timer').innerHTML = `all done!`;
+        }
+      }, 1);
+    }
+
+    countDownTimer();
+
+  </script>
+</body>
+
+</html>

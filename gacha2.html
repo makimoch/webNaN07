@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ガチャ</title>
+  <style>
+    li {
+      list-style: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <h1>gsガチャ</h1>
+    <button id="pull">ガチャる</button>
+    <button id="pull10">10連</button>
+  </div>
+  <div>
+    <ul id="output"></ul>
+  </div>
+
+  <script>
+    // 要素取得
+    const pull = document.getElementById('pull');
+    const pull10 = document.getElementById('pull10');
+    // ガチャテーブル用配列
+    const array = [];
+    // 結果用配列
+    const resultArray = [];
+    // 排出率の定義
+    const rarity = [
+      { rarity: 'ssr', percent: 1 },
+      { rarity: 'sr', percent: 9 },
+      { rarity: 'nr', percent: 90 }
+    ];
+
+    // 配列をタグに入れて文字列にする関数
+    const array2List = (array) => {
+      return array.map((x) => `<li>${x}</li>`).join('');
+    };
+
+    // 排出率をもとにガチャテーブルの配列を作成する関数
+    const gachaSet = (rarity, num) => {
+      for (let i = 0; i < num; i++) {
+        array.push(rarity)
+      }
+    }
+
+    // ガチャを引く関数
+    const gacha = () => {
+      const rand = ~~(Math.random() * (array.length - 1 - 0) + 0);
+      return array[rand];
+    }
+
+    // 初期設定
+    for (let k = 0; k < rarity.length; k++) {
+      gachaSet(rarity[k].rarity, rarity[k].percent);
+    }
+
+    // 単発
+    pull.addEventListener('click', function () {
+      resultArray.unshift(gacha());
+      document.getElementById('output').innerHTML = array2List(resultArray);
+    });
+
+    // 10連
+    pull10.addEventListener('click', function () {
+      for (let j = 0; j < 10; j++) {
+        resultArray.unshift(gacha());
+      }
+      document.getElementById('output').innerHTML = array2List(resultArray);
+    });
+
+  </script>
+
+</body>
+
+</html>

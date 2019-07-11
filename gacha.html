@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ガチャ</title>
+  <style>
+    li {
+      list-style: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <h1>gsガチャ</h1>
+    <button id="pull">ガチャる</button>
+    <button id="pull10">10連</button>
+  </div>
+  <div>
+    <ul id="output"></ul>
+  </div>
+
+  <script>
+    const pull = document.getElementById('pull');
+    const pull10 = document.getElementById('pull10');
+
+    const resultArray = [];
+
+    const array2List = (array) => {
+      return array.map((x) => `<li>${x}</li>`).join('');
+    };
+
+    const gacha = (min, max) => {
+      const rand = ~~(Math.random() * (max - min) + min);
+      if (rand === 1) {
+        return 'ssr';
+      } else if (rand > 1 && rand < 11) {
+        return 'sr';
+      } else {
+        return 'n';
+      }
+    };
+
+    // 単発
+    pull.addEventListener('click', function () {
+      const result = gacha(1, 100);
+      resultArray.unshift(result);
+      document.getElementById('output').innerHTML = array2List(resultArray);
+    });
+
+    // 10連
+    pull10.addEventListener('click', function () {
+      for (let i = 0; i < 10; i++) {
+        const result = gacha(1, 100);
+        resultArray.unshift(result);
+      }
+      document.getElementById('output').innerHTML = array2List(resultArray);
+
+    });
+
+  </script>
+</body>
+
+</html>
