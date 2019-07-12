@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ガチャ</title>
+    <style>
+      li {
+        list-style: none;
+      }
+      img {
+        width: 90%;
+      }
+      .outer-box {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .inner-box {
+        width: 33%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <h1>gsガチャ</h1>
+      <button id="pull">ガチャる</button>
+      <button id="pull10">10連</button>
+      <div id="result" class="outer-box"></div>
+    </div>
+    <div>
+      <ul id="output"></ul>
+    </div>
+    <script src="./main01.js"></script>
+  </body>
+</html>
